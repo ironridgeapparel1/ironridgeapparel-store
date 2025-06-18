@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Iron Ridge Apparel - Demo Store</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: #f5f5f5;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #1a1a1a;
+      color: #fff;
+      padding: 1rem 2rem;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+    .product-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      max-width: 350px;
+      width: 100%;
+      padding: 1rem;
+      text-align: center;
+    }
+    .product-card img {
+      width: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .product-card h2 {
+      margin: 1rem 0 0.5rem;
+      font-size: 1.4rem;
+      color: #222;
+    }
+    .price {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      color: #b03a2e;
+    }
+    button {
+      background-color: #b03a2e;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #8a2a22;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+      background: #eee;
+    }
+    @media (max-width: 480px) {
+      main {
+        padding: 1rem;
+      }
+      .product-card {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>Iron Ridge Apparel</header>
+  <main>
+    <div class="product-card">
+      <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=600&q=80" alt="Iron Ridge Hoodie" />
+      <h2>Iron Ridge Hoodie</h2>
+      <p class="price">$29.99</p>
+      <button id="checkout-button">Buy Now</button>
+    </div>
+  </main>
+  <footer>© 2025 Iron Ridge Apparel. Demo site.</footer>
+
+  <script>
+    const stripePublicKey = "pk_test_51KXrPLCEXAMPLEKEY"; // Replace in backend with actual test key
+
+    const checkoutButton = document.getElementById('checkout-button');
+    checkoutButton.addEventListener('click', () => {
+      fetch('/create-checkout-session', { method: 'POST' })
+        .then((res) => res.json())
+        .then(({ url }) => {
+          window.location = url;
+        })
+        .catch((e) => {
+          alert('Payment initialization failed.');
+          console.error(e);
+        });
+    });
+  </script>
+</body>
+</html>
